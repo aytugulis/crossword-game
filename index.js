@@ -112,7 +112,7 @@ function create() {
         this.add.dom(100, 254, 'h2', this.style, 'A')
         this.add.dom(100, 306, 'h2', this.style, 'R')
         this.count--
-        this.secretWords.splice(0, 1)
+        this.secretWords[0] = null
         checked = true
       }
 
@@ -122,7 +122,7 @@ function create() {
         this.add.dom(204, 150, 'h2', this.style, 'E')
         this.add.dom(256, 150, 'h2', this.style, 'L')
         this.count--
-        this.secretWords.splice(1, 1)
+        this.secretWords[1] = null
         checked = true
       }
 
@@ -131,7 +131,7 @@ function create() {
         this.add.dom(256, 202, 'h2', this.style, 'E')
         this.add.dom(256, 254, 'h2', this.style, 'T')
         this.count--
-        this.secretWords.splice(2, 1)
+        this.secretWords[2] = null
         checked = true
       }
 
@@ -141,7 +141,7 @@ function create() {
         this.add.dom(360, 254, 'h2', this.style, 'A')
         this.add.dom(412, 254, 'h2', this.style, 'R')
         this.count--
-        this.secretWords.splice(3, 1)
+        this.secretWords[3] = null
         checked = true
       }
 
@@ -150,9 +150,13 @@ function create() {
         this.add.dom(412, 306, 'h2', this.style, 'E')
         this.add.dom(412, 358, 'h2', this.style, 'D')
         this.count--
-        this.secretWords.splice(4, 1)
+        this.secretWords[4] = null
         checked = true
-      }   
+      }
+
+      if(this.count === 0) {
+        alert('YOU ARE ROCK')
+      }
 
     } else {
       alert('wrong or already exist')
