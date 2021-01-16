@@ -1,0 +1,112 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+#text{
+    background-color: gray;
+    border-radius: 50%;
+    width: 18rem;
+    height: 18rem;
+}
+
+button{
+    background-color: #0014ca;
+    color: white;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+    font-weight: bolder;
+    border: none;
+    outline: none;
+    position: absolute;
+}
+
+button:hover{
+    background-color: #1930ff;
+}
+
+.btn-1{
+    top: 1rem;
+    left: 7.5rem;
+}
+
+.btn-2{
+    top: 14rem;
+    left: 7.5rem;
+}
+
+.btn-3{
+    top: 7.5rem;
+    left: 1rem;
+}
+
+.btn-4{
+    top: 7.5rem;
+    left: 14rem;
+}
+
+.btn-5{
+    top: 2.75rem;
+    left: 12.5rem;
+}
+
+.btn-6{
+    top: 2.75rem;
+    left: 2.5rem;
+}
+
+.btn-7{
+    top: 12.5rem;
+    left: 2.5rem;
+}
+
+.btn-8{
+    top: 12.5rem;
+    left: 12.5rem;
+}
+
+
+
+
+
+
+/* .btn-1{
+    top: 52%;
+    left: 17%;
+}
+
+.btn-2{
+    top: 28%;
+    left: 17%;
+}
+
+.btn-3{
+    top: 28%;
+    left: 73%;
+}
+
+.btn-4{
+    top: 52%;
+    left: 73%;
+}
+
+.btn-5{
+    top: 78%;
+    left: 32%;
+}
+
+.btn-6{
+    top: 78%;
+    left: 58%;
+}
+
+.btn-7{
+    top: 10%;
+    left: 32%;
+}
+
+.btn-8{
+    top: 10%;
+    left: 58%;
+} */
