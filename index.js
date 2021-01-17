@@ -27,9 +27,9 @@ function init() {
     (this.finalWord = ''),
     (this.totalWord = 5),
     (this.style = {
-      'color': 'blue',
-      'font': '35px Arial',
-      'font-weight': 'bold',
+      'color': 'black',
+      'font-size': '2rem',
+      'font-weight': 'bolder',
       'cursor': 'context-menu'
     })
 }
@@ -37,9 +37,8 @@ function init() {
 //PRELOAD
 function preload() {
   this.load.html('text', 'src/text.html')
-  this.load.image('background', 'texture/bg.png')
+  this.load.image('background', 'texture/bg.jpg')
   this.load.image('box', 'texture/box.jpg')
-  this.load.image('box-a', 'texture/box-a.jpg')
 }
 
 
@@ -62,19 +61,19 @@ function create() {
   const bg = this.add.sprite(0, 0, 'background')
   bg.setOrigin(0, 0)
 
-  // CREATE SCORE TEXT
+  // CREATE SCORE TEXT CIRCLE
   this.scoreText = this.add.text(100, 20, 'score: ' + this.score, {
     fontSize: '24px',
   })
 
-  // SECRET WORD LIST
-   this.head = this.add.text(490, 20, 'Secret Words', {
+  // CREATE SECRET WORD LIST
+   this.head = this.add.text(540, 20, 'Secret Words', {
      fontSize: '24px',
    })
 
    for (let i = 0; i < this.secretWords.length; i++) {
     this.secretWordText = []
-   this.secretWordText[i] = this.add.text(540, 50+(i*20), this.secretWords[i], {
+   this.secretWordText[i] = this.add.text(600, 50+(i*20), this.secretWords[i], {
      fontSize: '16px',
    })
    }
@@ -95,8 +94,22 @@ function create() {
   this.box13 = this.add.sprite(412, 306, 'box')
   this.box14 = this.add.sprite(412, 358, 'box')
 
+   //CREATE RESTART BUTTON AND EVENT
+   this.resetButton = this.add.dom(620, 520, 'button', this.buttonStyle, 'RESET')
+   this.resetButton.addListener('click')
+
+   this.resetButton.on('click', (e) => {
+     const rest = confirm('Are you sure ?')
+     rest ? restart() : null
+   })
+
+   // this.showWord = this.add.text(200, 220, 'WORD' , {
+   //   fontSize: '24px',
+   // })
+
   // TEXT AREA
-  this.text = this.add.dom(600, 300).createFromCache('text')
+
+  this.text = this.add.dom(620, 320).createFromCache('text')
   this.text.addListener('mousedown')
   this.text.addListener('mousemove')
   this.text.addListener('mouseup')
@@ -104,35 +117,35 @@ function create() {
 
   this.text.on('mousedown', (e) => {
     this.drag = true
-    // this.box5.destroy()
   })
-
+  
   this.text.on('mousemove', (e) => {
-    
     if (this.drag) {
       if (
         e.target.value !== undefined &&
         this.wordList.includes(e.target.value) === false
-      ) {
-        this.wordList.push(e.target.value)
+        ) {
+          this.wordList.push(e.target.value)
+        }
+        // this.showWord.setText(this.wordList)
       }
-    }
-  })
-
+    })
+  
   this.text.on('mouseup', (e) => {
     this.drag = false
-
+    
     // WORD ARRAY TO STRING
     for (let i = 0; i < this.wordList.length; i++) {
       this.finalWordList.push(this.wordList[i][0])
     }
     this.finalWord = this.finalWordList.join('')
-
+    
+    this.showWord.destroy()
     // WORD CHECK
-
+    
     if (this.secretWords.includes(this.finalWord)) {
       let checked = false
-
+      
       if (this.finalWord === 'FEAR' && checked === false) {
         if(this.secretWords[1] !== null){
           this.add.dom(100, 150, 'h2', this.style, 'F')
@@ -210,22 +223,20 @@ function create() {
       if(this.count === 0) {
         setTimeout(() => {
           const rest = confirm('YOU WON!, DO YOU WANT TO PLAY AGAIN ?')
-          if(rest){
-            restart()
-          }  
+          rest ? restart() : null
         }, 300);
       }
 
     } else {
       alert('wrong or already exist')
     }
-
     // RESET DATA
     resetData()
   })
 
   this.text.on('mouseleave', (e) => {
     // RESET DATA
+    this.drag = true
     resetData()
   })
 

@@ -3,15 +3,33 @@
     margin: 0;
 }
 #text{
-    background-color: gray;
+    background-color: #1A1A1A;
     border-radius: 50%;
     width: 18rem;
     height: 18rem;
 }
 
 button{
-    background-color: #0014ca;
-    color: white;
+    background-color: #927C4D;
+    color: black;
+    border-radius: 5%;
+    width: 5rem;
+    height: 2rem;
+    font-size: 1rem;
+    font-weight: bolder;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #1A1A1A;
+    color: #927C4D;
+}
+
+.btn{
+    background-color: #927C4D;
+    color: black;
     border-radius: 50%;
     width: 3rem;
     height: 3rem;
@@ -22,8 +40,9 @@ button{
     position: absolute;
 }
 
-button:hover{
-    background-color: #1930ff;
+.btn:hover{
+    background-color: black;
+    color: #927C4D;
 }
 
 .btn-1{
@@ -65,48 +84,3 @@ button:hover{
     top: 12.5rem;
     left: 12.5rem;
 }
-
-
-
-
-
-
-/* .btn-1{
-    top: 52%;
-    left: 17%;
-}
-
-.btn-2{
-    top: 28%;
-    left: 17%;
-}
-
-.btn-3{
-    top: 28%;
-    left: 73%;
-}
-
-.btn-4{
-    top: 52%;
-    left: 73%;
-}
-
-.btn-5{
-    top: 78%;
-    left: 32%;
-}
-
-.btn-6{
-    top: 78%;
-    left: 58%;
-}
-
-.btn-7{
-    top: 10%;
-    left: 32%;
-}
-
-.btn-8{
-    top: 10%;
-    left: 58%;
-} */
