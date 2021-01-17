@@ -8,11 +8,9 @@ const config = {
     createContainer: true,
   },
   scene: {
-    preload: preload,
-    create: create,
-    update: update,
-    end: end,
-    init: init,
+    preload,
+    create,
+    init
   },
 }
 
@@ -44,16 +42,42 @@ function preload() {
   this.load.image('box-a', 'texture/box-a.jpg')
 }
 
+
 //CREATE
 function create() {
+
+  // RESET DATA HELPER FUNCTION
+  const resetData = () => {
+    this.finalWordList = []
+    this.finalWord = ''
+    this.wordList = []
+  }
+  // RESET GAME HELPER FUNCTION
+  const restart = () => {
+    this.sys.game.destroy(true);
+    game = new Phaser.Game(config)
+  }
+
   // CREATE BACKGROUND
   const bg = this.add.sprite(0, 0, 'background')
   bg.setOrigin(0, 0)
 
   // CREATE SCORE TEXT
-  this.scoreText = this.add.text(100, 16, 'score: ' + this.score, {
+  this.scoreText = this.add.text(100, 20, 'score: ' + this.score, {
     fontSize: '24px',
   })
+
+  // SECRET WORD LIST
+   this.head = this.add.text(490, 20, 'Secret Words', {
+     fontSize: '24px',
+   })
+
+   for (let i = 0; i < this.secretWords.length; i++) {
+    this.secretWordText = []
+   this.secretWordText[i] = this.add.text(540, 50+(i*20), this.secretWords[i], {
+     fontSize: '16px',
+   })
+   }
 
   // CREATE BOXES
   this.box1 = this.add.sprite(100, 150, 'box')
@@ -76,12 +100,15 @@ function create() {
   this.text.addListener('mousedown')
   this.text.addListener('mousemove')
   this.text.addListener('mouseup')
+  this.text.addListener('mouseleave')
 
   this.text.on('mousedown', (e) => {
     this.drag = true
+    // this.box5.destroy()
   })
 
   this.text.on('mousemove', (e) => {
+    
     if (this.drag) {
       if (
         e.target.value !== undefined &&
@@ -107,55 +134,86 @@ function create() {
       let checked = false
 
       if (this.finalWord === 'FEAR' && checked === false) {
-        this.add.dom(100, 150, 'h2', this.style, 'F')
+        if(this.secretWords[1] !== null){
+          this.add.dom(100, 150, 'h2', this.style, 'F')
+        }
         this.add.dom(100, 202, 'h2', this.style, 'E')
         this.add.dom(100, 254, 'h2', this.style, 'A')
         this.add.dom(100, 306, 'h2', this.style, 'R')
+        this.score += 10;
+        this.scoreText.setText('score: ' + this.score);
         this.count--
         this.secretWords[0] = null
         checked = true
       }
 
       if (this.finalWord === 'FEEL' && checked === false) {
-        this.add.dom(100, 150, 'h2', this.style, 'F')
+        if(this.secretWords[0] !== null){
+          this.add.dom(100, 150, 'h2', this.style, 'F')
+        }
         this.add.dom(152, 150, 'h2', this.style, 'E')
         this.add.dom(204, 150, 'h2', this.style, 'E')
-        this.add.dom(256, 150, 'h2', this.style, 'L')
+        if(this.secretWords[2] !== null){
+          this.add.dom(256, 150, 'h2', this.style, 'L')
+        }
+        this.score += 10;
+        this.scoreText.setText('score: ' + this.score);
         this.count--
         this.secretWords[1] = null
         checked = true
       }
 
       if (this.finalWord === 'LET' && checked === false) {
-        this.add.dom(256, 150, 'h2', this.style, 'L')
+        if(this.secretWords[1] !== null){
+          this.add.dom(256, 150, 'h2', this.style, 'L')
+        }
         this.add.dom(256, 202, 'h2', this.style, 'E')
-        this.add.dom(256, 254, 'h2', this.style, 'T')
+        if(this.secretWords[3] !== null){
+          this.add.dom(256, 254, 'h2', this.style, 'T')
+        }
+        this.score += 7;
+        this.scoreText.setText('score: ' + this.score);
         this.count--
         this.secretWords[2] = null
         checked = true
       }
 
       if (this.finalWord === 'TEAR' && checked === false) {
-        this.add.dom(256, 254, 'h2', this.style, 'T')
+        if(this.secretWords[2] !== null){
+          this.add.dom(256, 254, 'h2', this.style, 'T')
+        }
         this.add.dom(308, 254, 'h2', this.style, 'E')
         this.add.dom(360, 254, 'h2', this.style, 'A')
-        this.add.dom(412, 254, 'h2', this.style, 'R')
+        if(this.secretWords[4] !== null){
+          this.add.dom(412, 254, 'h2', this.style, 'R')
+        }
+        this.score += 10;
+        this.scoreText.setText('score: ' + this.score);
         this.count--
         this.secretWords[3] = null
         checked = true
       }
 
       if (this.finalWord === 'RED' && checked === false) {
-        this.add.dom(412, 254, 'h2', this.style, 'R')
+        if(this.secretWords[3 ] !== null){
+          this.add.dom(412, 254, 'h2', this.style, 'R')
+        }
         this.add.dom(412, 306, 'h2', this.style, 'E')
         this.add.dom(412, 358, 'h2', this.style, 'D')
+        this.score += 7;
+        this.scoreText.setText('score: ' + this.score);
         this.count--
         this.secretWords[4] = null
         checked = true
       }
 
       if(this.count === 0) {
-        alert('YOU ARE ROCK')
+        setTimeout(() => {
+          const rest = confirm('YOU WON!, DO YOU WANT TO PLAY AGAIN ?')
+          if(rest){
+            restart()
+          }  
+        }, 300);
       }
 
     } else {
@@ -163,17 +221,12 @@ function create() {
     }
 
     // RESET DATA
-    this.finalWordList = []
-    this.finalWord = ''
-    this.wordList = []
+    resetData()
   })
-}
 
-function update() {
-  // IS WORD TRUE ?
-  // if (this.input.activePointer.isDown) {
-  //   this.box5 = this.add.sprite(100, 254, 'box-a')
-  // }
-}
+  this.text.on('mouseleave', (e) => {
+    // RESET DATA
+    resetData()
+  })
 
-function end() {}
+}
