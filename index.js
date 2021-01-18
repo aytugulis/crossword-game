@@ -140,9 +140,7 @@ function create() {
     }
     this.finalWord = this.finalWordList.join('')
     
-    this.showWord.destroy()
-    // WORD CHECK
-    
+    // WORD CHECK  
     if (this.secretWords.includes(this.finalWord)) {
       let checked = false
       
@@ -236,7 +234,6 @@ function create() {
 
   this.text.on('mouseleave', (e) => {
     // RESET DATA
-    this.drag = true
     resetData()
   })
 
