@@ -235,6 +235,10 @@ function create() {
   this.text.on('mouseleave', (e) => {
     // RESET DATA
     resetData()
+    if(this.drag === true){
+      alert('Please stay on text circle.')
+      this.drag = false
+    }
   })
 
 }
